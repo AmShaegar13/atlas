@@ -13,24 +13,40 @@ import net.leaguecom.atlas.module.OpModule;
 import org.pircbotx.Configuration;
 import org.pircbotx.Configuration.Builder;
 import org.pircbotx.PircBotX;
+import org.pircbotx.User;
 import org.pircbotx.UtilSSLSocketFactory;
 import org.pircbotx.exception.IrcException;
 
-public class Atlas {
+public class Atlas extends PircBotX {
+	private String master;
+	
+	public Atlas(Configuration<? extends Atlas> configuration) {
+		super(configuration);
+	}
+	
+	public void setMaster(String channel) {
+		master = channel;
+	}
+	
+	public boolean isAdmin(User user) {
+		return getUserChannelDao().getChannel(master).isOp(user);
+	}
+
 	public static void main(String[] args) throws IOException, IrcException {
 		Properties config = new Properties();
 		config.load(new FileReader("config.ini"));
 		
-		Builder<PircBotX> builder = new Configuration.Builder<PircBotX>()
+		Builder<Atlas> builder = new Configuration.Builder<Atlas>()
 				.setName(config.getProperty("nick"))
 				.setNickservPassword(config.getProperty("ident"))
 				.setServer(config.getProperty("host"), Integer.parseInt(config.getProperty("port")))
 				.addListener(new CommandListener());
 		
 		String[] channels = config.getProperty("channels").split(",");
-		if(Boolean.parseBoolean(config.getProperty("debug"))) {
-			builder.addAutoJoinChannel(channels[0]);
-		} else {
+		String master = config.getProperty("master");
+		builder.addAutoJoinChannel(master);
+		
+		if(!Boolean.parseBoolean(config.getProperty("debug"))) {
 			for(String channel : channels) {
 				builder.addAutoJoinChannel(channel);
 			}
@@ -44,7 +60,8 @@ public class Atlas {
 		
 		initCommands();
 
-		PircBotX bot = new PircBotX(builder.buildConfiguration());
+		Atlas bot = new Atlas(builder.buildConfiguration());
+		bot.setMaster(master);
 		bot.startBot();
 	}
 

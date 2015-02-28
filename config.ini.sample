@@ -3,5 +3,6 @@ ident = yourpassword
 host = irc.esper.net
 port = 6697
 ssl = true
-channels = #atlas,#foo
+master = #atlas
+channels = #foo,#bar
 debug = false

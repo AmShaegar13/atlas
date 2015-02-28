@@ -1,14 +1,14 @@
 package net.leaguecom.atlas.listener;
 
+import net.leaguecom.atlas.Atlas;
 import net.leaguecom.atlas.module.ModuleManager;
 
-import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
-public class CommandListener extends ListenerAdapter<PircBotX> {
+public class CommandListener extends ListenerAdapter<Atlas> {
 	@Override
-	public void onGenericMessage(GenericMessageEvent<PircBotX> event)
+	public void onGenericMessage(GenericMessageEvent<Atlas> event)
 			throws Exception {
 		String msg = event.getMessage();
 

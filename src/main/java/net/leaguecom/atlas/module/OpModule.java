@@ -1,15 +1,22 @@
 package net.leaguecom.atlas.module;
 
+import net.leaguecom.atlas.Atlas;
+
 import org.pircbotx.Channel;
-import org.pircbotx.PircBotX;
 import org.pircbotx.User;
 import org.pircbotx.hooks.types.GenericMessageEvent;
 import org.pircbotx.output.OutputUser;
 
 public class OpModule implements Module {
-	public void execute(String cmd, String txt, GenericMessageEvent<PircBotX> event) {
-		PircBotX bot = event.getBot();
-		User u = bot.getUserChannelDao().getUser(txt);
+	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
+		Atlas bot = event.getBot();
+		User user = bot.getUserChannelDao().getUser(txt);
+
+		if(!bot.isAdmin(event.getUser())) {
+			event.respond("Only Atlas admins can do that.");
+			return;
+		}
+		
 		char modifier = '-';
 		switch (cmd) {
 		case "op":
@@ -22,7 +29,7 @@ public class OpModule implements Module {
 
 		OutputUser out = bot.getUserChannelDao().getUser("Chanserv").send();
 		for(Channel c : bot.getUserBot().getChannelsOpIn()) {
-			out.message(String.format("FLAGS %s %s %cO", c.getName(), u.getNick(), modifier));
+			out.message(String.format("FLAGS %s %s %cO", c.getName(), user.getNick(), modifier));
 		}
 	}
 

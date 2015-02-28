@@ -3,12 +3,13 @@ package net.leaguecom.atlas.module;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.pircbotx.PircBotX;
+import net.leaguecom.atlas.Atlas;
+
 import org.pircbotx.hooks.types.GenericMessageEvent;
 import org.pircbotx.output.OutputUser;
 
 public class HelpModule implements Module {
-	public void execute(String cmd, String txt, GenericMessageEvent<PircBotX> event) {
+	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
 		Map<String, Module> modMap = ModuleManager.getInstance().getModuleMap();
 		OutputUser out = event.getUser().send();
 		
