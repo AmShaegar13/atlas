@@ -29,7 +29,7 @@ public class OpModule implements Module {
 
 		OutputUser out = bot.getUserChannelDao().getUser("Chanserv").send();
 		for(Channel c : bot.getUserBot().getChannelsOpIn()) {
-			out.message(String.format("FLAGS %s %s %cO", c.getName(), user.getNick(), modifier));
+			out.message(String.format("FLAGS %s %s %cOo", c.getName(), user.getNick(), modifier));
 		}
 	}
 
