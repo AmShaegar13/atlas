@@ -8,7 +8,7 @@ import org.pircbotx.hooks.types.GenericMessageEvent;
 import org.pircbotx.output.OutputUser;
 
 public class OpModule implements Module {
-	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
+	public void execute(String cmd, String txt, GenericMessageEvent event) {
 		Atlas bot = event.getBot();
 		User user = bot.getUserChannelDao().getUser(txt);
 

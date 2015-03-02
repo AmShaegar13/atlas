@@ -3,8 +3,6 @@ package net.leaguecom.atlas.module;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.leaguecom.atlas.Atlas;
-
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
 public class ModuleManager {
@@ -26,7 +24,7 @@ public class ModuleManager {
 		cmdMap.put(cmd, mod);
 	}
 	
-	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
+	public void execute(String cmd, String txt, GenericMessageEvent event) {
 		if(!cmdMap.containsKey(cmd)) {
 			event.respond(String.format("Unknown command: %s", cmd));
 		}
