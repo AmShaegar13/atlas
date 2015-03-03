@@ -9,6 +9,7 @@ import net.leaguecom.atlas.module.HelpModule;
 import net.leaguecom.atlas.module.Module;
 import net.leaguecom.atlas.module.ModuleManager;
 import net.leaguecom.atlas.module.OpModule;
+import net.leaguecom.atlas.module.SimpleMessageModule;
 
 import org.pircbotx.Configuration;
 import org.pircbotx.Configuration.Builder;
@@ -72,5 +73,6 @@ public class Atlas extends PircBotX {
 		Module opMod = new OpModule();
 		cmdMan.registerCommand("op", opMod);
 		cmdMan.registerCommand("deop", opMod);
+		cmdMan.registerCommand("simple", new SimpleMessageModule());
 	}
 }

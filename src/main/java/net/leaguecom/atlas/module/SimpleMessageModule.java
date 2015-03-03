@@ -1,21 +1,26 @@
 package net.leaguecom.atlas.module;
 
-import net.leaguecom.atlas.Atlas;
-
-import org.pircbotx.hooks.events.MessageEvent;
+import org.pircbotx.Channel;
+import org.pircbotx.hooks.types.GenericChannelEvent;
 import org.pircbotx.hooks.types.GenericMessageEvent;
-import org.pircbotx.output.OutputChannel;
-import org.pircbotx.output.OutputUser;
+import org.pircbotx.output.GenericChannelUserOutput;
 
 public class SimpleMessageModule implements Module {
 	public void execute(String cmd, String txt, GenericMessageEvent event) {
-		Atlas bot = event.getBot();
-		
-		if(event instanceof MessageEvent) {
-			OutputChannel out = ((MessageEvent) event).getChannel().send();
-		} else {
-			OutputUser out = event.getUser().send();
+		GenericChannelUserOutput out = null;
+		if(event instanceof GenericChannelEvent) {
+			Channel channel = ((GenericChannelEvent) event).getChannel();
+			if(channel != null) {
+				out = channel.send();
+			}
 		}
+		if(out == null) {
+			out = event.getUser().send();
+		}
+		
+		out.action("performs a simple action!");
+		out.message("This is a simple message!");
+		out.notice("This is a simple notice!");
 	}
 
 	public String help(String cmd) {
