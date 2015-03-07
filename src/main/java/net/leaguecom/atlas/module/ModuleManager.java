@@ -27,6 +27,7 @@ public class ModuleManager {
 	public void execute(String cmd, String txt, GenericMessageEvent event) {
 		if(!cmdMap.containsKey(cmd)) {
 			event.respond(String.format("Unknown command: %s", cmd));
+			return;
 		}
 		
 		cmdMap.get(cmd).execute(cmd, txt, event);
