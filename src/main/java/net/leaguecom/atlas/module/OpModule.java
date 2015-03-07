@@ -1,44 +1,41 @@
 package net.leaguecom.atlas.module;
 
 import net.leaguecom.atlas.Atlas;
+import net.leaguecom.atlas.command.Command;
+import net.leaguecom.atlas.command.OpCommand;
 
-import org.pircbotx.Channel;
-import org.pircbotx.User;
 import org.pircbotx.hooks.types.GenericMessageEvent;
-import org.pircbotx.output.OutputUser;
 
 public class OpModule implements Module {
 	public void execute(String cmd, String txt, GenericMessageEvent event) {
 		Atlas bot = event.getBot();
-		User user = bot.getUserChannelDao().getUser(txt);
-
 		if(!bot.isAdmin(event.getUser())) {
-			event.respond("Only Atlas admins can do that.");
+			event.respond("Only admins can do that.");
 			return;
 		}
 		
-		char modifier = '-';
+		Command command = null;
+
 		switch (cmd) {
 		case "op":
-			modifier = '+';
-			break;
 		case "deop":
-			modifier = '-';
+			command = new OpCommand(cmd.equals("op"), txt, bot);
+			break;
+
+		case "register":
+			command = new RegisterCommand(txt);
 			break;
 		}
-
-		OutputUser out = bot.getUserChannelDao().getUser("Chanserv").send();
-		for(Channel c : bot.getUserBot().getChannelsOpIn()) {
-			out.message(String.format("FLAGS %s %s %cOo", c.getName(), user.getNick(), modifier));
-		}
+		
+		command.execute();
 	}
 
 	public String help(String cmd) {
 		switch (cmd) {
 		case "op":
-			return "Give +O to a user in all channels the bot is operator in.";
+			return "Give op to a user in all channels teh bot controls.";
 		case "deop":
-			return "Remove +O from a user in all channels the bot is op in.";
+			return "Remove op from a user in all channels the bot controls.";
 		default:
 			return String.format("Unknown command: %s", cmd);
 		}
