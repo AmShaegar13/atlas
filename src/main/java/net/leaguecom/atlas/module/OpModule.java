@@ -25,7 +25,10 @@ public class OpModule implements Module {
 
 		case "register":
 			String[] tmp = txt.split(" ", 2);
-			command = new RegisterCommand(tmp[0], tmp[1], event);
+			String channel = tmp[0];
+			String descr = tmp[1];
+			
+			command = new RegisterCommand(channel, descr, event);
 			break;
 		}
 		
@@ -38,6 +41,8 @@ public class OpModule implements Module {
 			return "Give op to a user in all channels teh bot controls.";
 		case "deop":
 			return "Remove op from a user in all channels the bot controls.";
+		case "register":
+			return "Register a new channel with a custom description.";
 		default:
 			return String.format("Unknown command: %s", cmd);
 		}
