@@ -3,6 +3,7 @@ package net.leaguecom.atlas.module;
 import net.leaguecom.atlas.Atlas;
 import net.leaguecom.atlas.command.Command;
 import net.leaguecom.atlas.command.OpCommand;
+import net.leaguecom.atlas.command.RegisterCommand;
 
 import org.pircbotx.hooks.types.GenericMessageEvent;
 

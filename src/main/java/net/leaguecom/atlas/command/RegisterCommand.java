@@ -1,11 +1,10 @@
-package net.leaguecom.atlas.module;
+package net.leaguecom.atlas.command;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
 import net.leaguecom.atlas.Atlas;
-import net.leaguecom.atlas.command.Command;
 
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
