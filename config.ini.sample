@@ -6,3 +6,4 @@ ssl = true
 master = #atlas
 channels = #foo,#bar
 debug = false
+founder = founderpassword

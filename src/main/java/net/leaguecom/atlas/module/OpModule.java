@@ -7,6 +7,7 @@ import net.leaguecom.atlas.command.OpCommand;
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
 public class OpModule implements Module {
+	
 	public void execute(String cmd, String txt, GenericMessageEvent event) {
 		Atlas bot = event.getBot();
 		if(!bot.isAdmin(event.getUser())) {
@@ -23,7 +24,8 @@ public class OpModule implements Module {
 			break;
 
 		case "register":
-			command = new RegisterCommand(txt);
+			String[] tmp = txt.split(" ", 2);
+			command = new RegisterCommand(tmp[0], tmp[1], event);
 			break;
 		}
 		
@@ -40,4 +42,5 @@ public class OpModule implements Module {
 			return String.format("Unknown command: %s", cmd);
 		}
 	}
+	
 }

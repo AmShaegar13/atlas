@@ -73,6 +73,7 @@ public class Atlas extends PircBotX {
 		Module opMod = new OpModule();
 		cmdMan.registerCommand("op", opMod);
 		cmdMan.registerCommand("deop", opMod);
+		cmdMan.registerCommand("register", opMod);
 		cmdMan.registerCommand("simple", new SimpleMessageModule());
 	}
 }
