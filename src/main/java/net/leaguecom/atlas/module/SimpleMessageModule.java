@@ -1,29 +1,26 @@
 package net.leaguecom.atlas.module;
 
-import org.pircbotx.Channel;
-import org.pircbotx.hooks.types.GenericChannelEvent;
+import net.leaguecom.atlas.Atlas;
+
 import org.pircbotx.hooks.types.GenericMessageEvent;
-import org.pircbotx.output.GenericChannelUserOutput;
 
 public class SimpleMessageModule implements Module {
 	public void execute(String cmd, String txt, GenericMessageEvent event) {
-		GenericChannelUserOutput out = null;
-		if(event instanceof GenericChannelEvent) {
-			Channel channel = ((GenericChannelEvent) event).getChannel();
-			if(channel != null) {
-				out = channel.send();
-			}
-		}
-		if(out == null) {
-			out = event.getUser().send();
+		Atlas bot = event.getBot();
+		
+		if(!bot.isAdmin(event.getUser())) {
+			event.respond("Only admins can do that.");
+			return;
 		}
 		
-		out.action("performs a simple action!");
-		out.message("This is a simple message!");
-		out.notice("This is a simple notice!");
+		String[] tmp = txt.split(" ", 2);
+		String target = tmp[0];
+		String msg = tmp[1];
+
+		bot.sendIRC().message(target, msg);
 	}
 
 	public String help(String cmd) {
-		return "Print this help text.";
+		return "Send message to channel or user.";
 	}
 }
