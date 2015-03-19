@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import net.leaguecom.atlas.listener.CommandListener;
 import net.leaguecom.atlas.module.HelpModule;
+import net.leaguecom.atlas.module.JoinModule;
 import net.leaguecom.atlas.module.Module;
 import net.leaguecom.atlas.module.ModuleManager;
 import net.leaguecom.atlas.module.OpModule;
@@ -76,5 +77,8 @@ public class Atlas extends PircBotX {
 		cmdMan.registerCommand("register", opMod);
 		Module msgMod = new SimpleMessageModule();
 		cmdMan.registerCommand("msg", msgMod);
+		Module joinMod = new JoinModule();
+		cmdMan.registerCommand("join", joinMod);
+		cmdMan.registerCommand("part", joinMod);
 	}
 }
