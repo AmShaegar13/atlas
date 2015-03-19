@@ -7,7 +7,7 @@ import org.pircbotx.hooks.types.GenericMessageEvent;
 
 public class JoinModule implements Module {
 	
-	public void execute(String cmd, String txt, GenericMessageEvent event) {
+	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
 		Atlas bot = event.getBot();
 		if(!bot.isAdmin(event.getUser())) {
 			event.respond("Only admins can do that.");
@@ -26,7 +26,7 @@ public class JoinModule implements Module {
 		case "part":
 			if(channel == null) {
 				if(event instanceof MessageEvent) {
-					((MessageEvent) event).getChannel().send().part();
+					((MessageEvent<Atlas>) event).getChannel().send().part();
 				} else {
 					event.respond("No channel specified");
 					return;

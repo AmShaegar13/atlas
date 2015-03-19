@@ -9,7 +9,7 @@ import org.pircbotx.hooks.types.GenericMessageEvent;
 
 public class OpModule implements Module {
 	
-	public void execute(String cmd, String txt, GenericMessageEvent event) {
+	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
 		Atlas bot = event.getBot();
 		if(!bot.isAdmin(event.getUser())) {
 			event.respond("Only admins can do that.");

@@ -5,7 +5,7 @@ import net.leaguecom.atlas.Atlas;
 import org.pircbotx.hooks.types.GenericMessageEvent;
 
 public class SimpleMessageModule implements Module {
-	public void execute(String cmd, String txt, GenericMessageEvent event) {
+	public void execute(String cmd, String txt, GenericMessageEvent<Atlas> event) {
 		Atlas bot = event.getBot();
 		
 		if(!bot.isAdmin(event.getUser())) {

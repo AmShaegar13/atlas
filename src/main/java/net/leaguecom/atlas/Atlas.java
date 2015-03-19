@@ -22,7 +22,7 @@ import org.pircbotx.exception.IrcException;
 public class Atlas extends PircBotX {
 	private String master;
 	
-	public Atlas(Configuration configuration) {
+	public Atlas(Configuration<Atlas> configuration) {
 		super(configuration);
 	}
 	
@@ -38,10 +38,10 @@ public class Atlas extends PircBotX {
 		Properties config = new Properties();
 		config.load(new FileReader("config.ini"));
 		
-		Builder builder = new Configuration.Builder()
+		Builder<Atlas> builder = new Configuration.Builder<Atlas>()
 				.setName(config.getProperty("nick"))
 				.setNickservPassword(config.getProperty("ident"))
-				.addServer(config.getProperty("host"), Integer.parseInt(config.getProperty("port")))
+				.setServer(config.getProperty("host"), Integer.parseInt(config.getProperty("port")))
 				.addListener(new CommandListener());
 		
 		String[] channels = config.getProperty("channels").split(",");

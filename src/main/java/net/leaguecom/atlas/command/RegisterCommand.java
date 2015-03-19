@@ -12,9 +12,9 @@ public class RegisterCommand implements Command {
 
 	private String channel;
 	private String description;
-	private GenericMessageEvent event;
+	private GenericMessageEvent<Atlas> event;
 
-	public RegisterCommand(String channel, String description, GenericMessageEvent event) {
+	public RegisterCommand(String channel, String description, GenericMessageEvent<Atlas> event) {
 		this.channel = channel;
 		this.description = description;
 		this.event = event;
